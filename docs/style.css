@@ -1,0 +1,531 @@
+/* =======================================
+   1. GRUNDLAGEN & RESET
+   ======================================= */
+
+:root {
+  /* --- GRUNDSKALA BLAU (Primary) --- */
+  --blue-hue: 220;
+  --blue-100: hsl(var(--blue-hue), 90%, 90%); /* Sehr hell */
+  --blue-300: hsl(var(--blue-hue), 80%, 70%);
+  --blue-500: hsl(var(--blue-hue), 70%, 50%); /* Basis Blau */
+  --blue-700: hsl(var(--blue-hue), 80%, 30%);
+  --blue-900: hsl(var(--blue-hue), 90%, 15%); /* Sehr dunkel */
+
+  /* --- ERGÄNZUNG ROT (Error / Accent) --- */
+  --red-hue: 0;
+  --red-light: hsl(var(--red-hue), 85%, 60%);
+  --red-main:  hsl(var(--red-hue), 75%, 45%);
+  --red-dark:  hsl(var(--red-hue), 90%, 25%);
+
+  /* --- ERGÄNZUNG GRÜN (Success / Accent) --- */
+  --green-hue: 145;
+  --green-light: hsl(var(--green-hue), 60%, 65%);
+  --green-main:  hsl(var(--green-hue), 55%, 40%);
+  --green-dark:  hsl(var(--green-hue), 70%, 20%);
+}
+
+
+
+
+
+/* Basis Body-Stile */  
+body {
+    font-family: 'lora', serif;
+    background-color: var(--blue-300);
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    margin-left: 15px;
+      }
+
+
+/* Hauptinhaltsbereich dehnt sich aus */
+main {
+    flex-grow: 1; 
+}
+
+/* Allgemeine Überschriftenstile (falls nicht im Hero-Bereich) */
+h1 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: var(--blue-900);
+    text-align: center;
+}
+
+
+
+
+/* =======================================
+   2. HEADER & NAVIGATION
+   ======================================= */
+
+
+/* Logo/Titel-Stil im Header */
+.logo h1 {
+    line-height: 1.2;
+    text-align: left; /* Klassisch seriös */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Der Name: Groß und markant */
+.logo .name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase; /* Wirkt autoritär und fest */
+    color: var(--blue-700);
+}
+
+/* Die Fachbezeichnung: Dezent darunter */
+.logo .subline {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 4px; /* Weite Abstände wirken hochwertig */
+    text-transform: uppercase;
+    color: var(--blue-700);   
+    border-top: 1px solid var(--blue-700); /* Trennlinie für Struktur */
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+/* Navigation-Stil */
+
+/* Navigations-Container und Hauptliste */
+
+
+/* Container der Navigation */
+.main-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Aktiviert Flexbox */
+    justify-content: flex-end; /* Schiebt die Menüpunkte nach rechts */
+    background-color: var(--blue-300);
+    border-bottom: var(--blue-900)solid 4px;
+}
+
+/* Die einzelnen Listen-Elemente */
+.main-nav li {
+    /* Abstände zwischen den Buttons, falls gewünscht */
+    
+}
+
+/* Die Links (Klickbereich maximieren) */
+.main-nav a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--blue-900);
+    background-color: var(--green-light) ;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-style: solid;
+    border-width: 2px;
+}
+
+/* Hover-Effekt mit korrektem Doppelpunkt */
+.main-nav a:hover {
+    background-color: hsl(var(--blue-hue), 80%, 70%);
+    color: white; /* Textfarbe beim Hovern oft besser in Weiß */
+    border-radius: 5px;
+}
+
+
+/* --- Dropdown-Logik --- */
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: hsl(var(--blue-hue), 90%, 15%); /* Dunkler, leicht durchsichtiger Hintergrund */
+    min-width: 180px;
+    text-align: left; 
+    z-index: 1010;
+    padding: 0;
+    border-top: 3px solid #007bff;
+}
+
+.submenu li {
+    display: block; 
+}
+
+.submenu li a {
+    color: white;
+    padding: 10px 15px;
+}
+
+.dropdown:hover .submenu {
+    display: block; 
+}
+
+
+/* =======================================
+   3. 🖼️ HERO-BEREICH (STARTSEITE)
+   ======================================= */
+
+   .hero {
+    min-height: 50vh; /* Reduziert von 80vh auf 50vh */
+    padding: 60px 40px; /* Mehr Platz nach oben/unten statt fixer Höhe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blue-300);
+}
+
+
+.hero-container {
+    display: flex;
+    align-items: stretch; /* Erlaubt den Elementen, die volle Höhe zu nutzen */
+    min-height: 60vh;     /* Gibt dem Container genug Höhe für den Versatz */
+    max-width: 100%;
+    width: 100%;
+    gap: 20px;
+    margin: 0 auto; /* Zentriert den Container */
+}
+
+/* Text-Bereich: Ganz oben links */
+.hero-content {
+    flex: 0 0 calc(70% - 20px); /* 70% minus halber Abstand */
+    text-align: left;
+    align-self: flex-start; /* Positioniert die Textbox oben */
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease-out;
+}
+
+/* Bild-Bereich: Ganz unten rechts */
+.hero-image {
+    flex: 0 0 calc(30% - 20px); /* 30% minus halber Abstand */
+    display: flex;
+    justify-content: flex-end; /* Schiebt das Bild nach rechts */
+    align-self: flex-end;    /* Positioniert das Bild unten */
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease-out;
+}
+
+
+/* Zielzustand: Wenn die Klasse .appear hinzugefügt wird */
+.hero-content.appear,
+.hero-image.appear {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 400px; /* Deine gewünschte Begrenzung */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* Mobil-Optimierung: Untereinander wieder zentriert */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-content, .hero-image {
+        align-self: ; /* Auf dem Handy sieht versetzt meist unruhig aus */
+        text-align: center;
+    }
+}
+
+.hero-content h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem); /* Etwas kleiner als vorher */
+    margin-bottom: 20px;
+    line-height: 1.1;
+    color: var(--blue-900);
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    margin-bottom: 40px;
+    color: var(--blue-900);
+    /* WICHTIG: Neutralisieren störender globaler p-Stile */
+    background-color: transparent;
+    padding: 0;
+}
+
+/* =======================================
+   4. 🖱️ CALL-TO-ACTION (CTA-Button)
+   ======================================= */
+
+.cta-button {
+    display: inline-block;
+    color:var(--blue-100);
+    background-color: var(--green-main);
+    padding: 15px 15px;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 5px; /* quadratisch */
+    border: 2px solid black;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:hover {
+    background-color: var(--blue-900);
+    color: var(--blue-100);
+    transform: translateY(-2px);
+}
+
+
+
+/* --- Entfernte und nicht benötigte Grid-Layout-Klassen (Grid-Layout wird meist nur auf Unterseiten benötigt) --- */
+
+/* --- Allgemeine Bild-Stile (Jetzt neutraler) --- */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+    /* Grüne Ränder und feste Breiten entfernt */
+    padding: 0;
+}
+
+/* Hier könnten noch Stile für Features, Produkte usw. auf Unterseiten folgen */
+
+/* Beispiel für eine Sub-Sektion */
+.features {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* WENN SIE DAS GRID-LAYOUT FÜR EINE SIDEBAR (menu) UND DEN HAUPTINHALT (content) BRAUCHEN,
+   MÜSSEN SIE DIE ENTSPRECHENDEN KLASSEN AUF DIESE CONTAINER ANWENDEN. 
+   Dieser Selektor wendet Grid auf das .container-Element selbst an.
+*/
+.container.grid-layout { /* WICHTIG: Kein Leerzeichen zwischen .container und .grid-layout, wenn beides an einem Element ist */
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "content sidebar"
+        "footer footer";       
+    grid-template-columns: 1fr minmax(250,350); 
+    /*content opimized */
+    gap: 20px;
+    max-width: 1100px;
+    padding: 5px;
+    border-style: solid;
+    margin: 0 auto; /* Zentriert den gesamten Container auf der Seite */
+    background-color: var(--blue-300);
+      }
+
+.container-header {
+    grid-area: header;
+    text-align: center;
+    border-style: solid;
+    background-color: var(--blue-700);
+    color: var(--blue-100);
+}
+
+.container-content {
+    grid-area: content;
+    text-align: left;
+    border-style: solid;
+    color: var(--blue-100);
+    border:   solid 0px var(--blue-700);
+    border-radius: 6%;
+    background-color: var(--blue-300);
+    
+   }
+
+.container-content h3 {
+    text-align: left;
+    grid-column: span 1;
+    color: var(--blue-700);  
+    font-size: 30px; 
+}
+
+.container-content p {
+    text-align: left;
+    grid-column: span 1;
+    color: var(--blue-700); 
+    font-size: 20px;
+}
+
+.container-sidebar {
+    grid-area: sidebar; /* KORRIGIERT: Eigenes Feld für die Sidebar */
+    text-align: left;
+    border-style: solid;
+    background-color: var(--blue-300);
+    color: var(--blue-500);
+     }
+
+.container-sidebar h3 {
+    text-align: left;
+    grid-column: span 2;
+    color: var(--blue-700); 
+    font-size: 30px; 
+}
+
+.container-sidebar p {
+    text-align: left;
+    grid-column: span 2;
+    color: var(--blue-700);
+    font-size: 20px;  
+}
+
+
+.container-footer {
+    grid-area: footer;
+    text-align: center; 
+    border-style: solid;
+    background-color: var(--blue-500);
+    color: var(--blue-100);
+}
+    
+/* WENN SIE DAS GRID-LAYOUT FÜR EINE SIDEBAR (menu) UND DEN HAUPTINHALT (content) BRAUCHEN,
+   MÜSSEN SIE DIE ENTSPRECHENDEN KLASSEN AUF DIESE CONTAINER ANWENDEN. 
+   Dieser Selektor wendet Grid auf das .container-Element selbst an.
+*/
+
+
+/* 1. Korrektur des fehlerhaften Klassennamens im CSS */
+
+
+
+.contact-section {
+  padding: 4rem 2rem;
+   background-color: var(--blue-300);
+   color: var(--blue-500);
+   font-family: 'Segoe UI', sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+/* Das Grid-System */
+.contact-grid {
+  display: grid;
+  /* Erklärt: Erstelle so viele Spalten wie möglich, mindestens 250px breit, sonst 1 Anteil vom Rest */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem; /* Abstand zwischen den Cards */
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: var(--blue-300);
+}
+
+/* Die Card an sich */
+.contact-card {
+  background-color: var(--blue-100);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border-style: var(--blue-300); /* Seriöser Akzentstreifen */
+  box-shadow:  0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px); /* Kleiner Hover-Effekt */
+}
+
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.contact-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.card-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.card-link:hover {
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.slider-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slide {
+    display: none; /* Versteckt alle Slides standardmäßig */
+}
+
+.slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Textbeschriftung */
+.slide-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Navigations-Buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background: rgba(0,0,0,0.3);    
+}
+
+.next { right: 0; }
+.prev:hover, .next:hover { background: rgba(0,0,0,0.8); }
+
+/* Animation: Sanftes Einblenden */
+.fade {
+    animation: fadeAnim 1.5s;
+}
+
+@keyframes fadeAnim {
+    from { opacity: .4 } 
+    to { opacity: 1 }
+}
+
+/* Verstecke das Submenu standardmäßig */
+.submenu {
+    display: none;
+}
+
+/* Zeige es an, wenn die Klasse 'active' durch JS hinzugefügt wurde */
+.dropdown.active .submenu {
+    display: block;
+}
